@@ -1,5 +1,7 @@
 package com.booking.models;
 
+import com.booking.Abstracts.Person;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

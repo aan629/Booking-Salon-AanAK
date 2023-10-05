@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.booking.Abstracts.Person;
 import com.booking.models.Customer;
 import com.booking.models.Employee;
 import com.booking.models.Membership;
-import com.booking.models.Person;
 
 public class PersonRepository {
     public static List<Person> getAllPerson(){

@@ -1,5 +1,7 @@
 package com.booking.models;
 
+import com.booking.Abstracts.Person;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,10 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Getter
 @Setter
+
 public class Customer extends Person {
     private double wallet;
     private Membership member;
+
+
 }

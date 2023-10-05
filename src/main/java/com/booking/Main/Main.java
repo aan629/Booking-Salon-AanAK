@@ -1,4 +1,4 @@
-package com.booking;
+package com.booking.Main;
 
 import com.booking.service.MenuService;
 

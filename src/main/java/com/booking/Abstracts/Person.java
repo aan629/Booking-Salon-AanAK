@@ -1,4 +1,4 @@
-package com.booking.models;
+package com.booking.Abstracts;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
+
 public abstract class Person {
     private String id;
     private String name;    
