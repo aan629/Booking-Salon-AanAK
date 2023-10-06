@@ -28,11 +28,13 @@ public class MenuService {
         boolean backToSubMenu = true;
         do {
             PrintService.printMenu("Main Menu", mainMenuArr);
+            System.out.println();
             optionMainMenu = ValidationService.validationOfNumberWithMin("Masukkan pilihan menu (0 s.d 3) : ", "Mohon maaf, inputan harus berupa angka", regexNumber, 0);
             switch (optionMainMenu) {
                 case 1:
                     do {
                         PrintService.printMenu("Show Data", subMenuArr);
+                        System.out.println();
                         optionSubMenu = ValidationService.validationOfNumberWithMin("Masukkan pilihan sub menu 1 (0 s.d 4) : ", "Mohon maaf, inputan harus berupa angka", regexNumber, 0);
                         // Sub menu - menu 1
                         switch (optionSubMenu) {

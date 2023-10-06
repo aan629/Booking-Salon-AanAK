@@ -143,8 +143,8 @@ public class ReservationService {
                 break;
             }else if(indexToFind != -1){
                 listAllService.remove(indexListService);
-                System.out.println("Service sudah dipilih!!!");
-                System.out.println("Input ulang yang mulia!!!.");
+                System.out.println("Service sudah dipilih sehingga pilihan layanan yang dipilih akan tereliminasi");
+                System.out.println("Silahkan pilih tambahan layanan service yang anda inginkan yang mulia!!!.");
                 System.out.println();
             } else {
                System.out.println("Mohon maaf!!!, Service ID tidak valid sehingga layanan Service yang anda cari tidak tersedia"); 
@@ -164,46 +164,58 @@ public class ReservationService {
         }
 
         System.out.println("Booking Berhasil!!!");
-        System.out.println("Total biaya booking adalah : RP." + reservationPrice);
+        System.out.println("Total biaya booking adalah : RP." + String.format("#,##0", (int)reservationPrice));
         System.out.println();
 
-        result.add(new Reservation("Rsv-0" + numberReservID, (Customer)newCustomer, (Employee)newEmployee, newService, reservationPrice, "In Process"));
+        result.add(new Reservation("Rsv-" + String.format("%02d", numberReservID), (Customer)newCustomer, (Employee)newEmployee, newService, reservationPrice, "In Process"));
         
         return result;
     }
 
     public static void editReservationWorkstage(List<Reservation> listAllReservation){
         PrintService print = new PrintService();
-        print.showRecentReservation(listAllReservation);
+        print.showHistoryReservation(listAllReservation);
 
         String regexReservationID = "Rsv-\\d{2}";
         boolean isLooping = true;
         String newReservationID = "";
+        int indexToFind1 = -1;
+        int indexToFind2 = -1;
 
         do {
             isLooping = true;
             newReservationID = ValidationService.validationOfID("Silahkan Masukkan Reservation ID : ","Maaf, ID Reservation harus sesuai dengan format 'Rsv-' diikuti dengan 2 digit angka ID.", regexReservationID);
 
             for (Reservation reservation : listAllReservation) {
-                if (newReservationID.contains(reservation.getReservationId())) {
+                if (newReservationID.contains(reservation.getReservationId()) && reservation.getWorkstage().equals("In Process")) {
                     System.out.println("Selamat!!!, Reservasi ID terverifikasi.");
                     System.out.println();
                     String workstage = ValidationService.validationOfID("Selesaikan status Reservasi!!!, Silahkan untuk melakukan pengeditan workstage : ", "Mohon maaf, pilihan harus berupa pilihan ini (Cancel/Finish)", "Cancel|Finish|cancel|finish|CANCEL|FINISH");
-                
-                    if (workstage.equalsIgnoreCase("Finish") && reservation.getWorkstage().equals("In Process")) {
+                    indexToFind1++;
+
+                    if (workstage.equalsIgnoreCase("Finish")) {
                         reservation.setWorkstage("Finish");
                         System.out.println("Reservasi dengan ID " + newReservationID + " sudah finish");
-                        isLooping = false;
                         break;
-                    } else if (workstage.equalsIgnoreCase("Cancel") && reservation.getWorkstage().equals("In Process")){
+                    } else if (workstage.equalsIgnoreCase("Cancel")){
                         reservation.setWorkstage("Cancel");
                         System.out.println("Reservasi dengan ID " + newReservationID + " sudah cancel");
-                        isLooping = false;
                         break;
-                    }else{
-                        System.out.println("Maaf, Reservasi yang dicari sudah selesai.");
                     }
+                } else if(newReservationID.contains(reservation.getReservationId()) && !reservation.getWorkstage().equals("In Process")){
+                    indexToFind2++;
+                    break;
                 }
+            }
+
+            if (indexToFind1 != -1) {
+                isLooping = false;
+            } else if(indexToFind2 != -1){
+                System.out.println("Mohon maaf, Reservasi yang anda cari sudah selesai dan tidak tersedia lagi!!!.");
+                System.out.println("Silahkan input ulang yang mulia!!!.");
+            }else {
+                System.out.println("ID reservasi tidak ditemukan");
+                System.out.println("Silahkan input ulang yang mulia!!!.");
             }
             
         } while (isLooping);
